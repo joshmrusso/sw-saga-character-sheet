@@ -1,6 +1,8 @@
 const fs = require('fs')
 var data = fs.readFileSync('data/species.json');
 var words = JSON.parse(data);
+var mongo = require('mongodb');
+
 
 console.log('server is starting');
 
@@ -45,6 +47,26 @@ app.use(express.static('website'));
 //         response.send(reply);
 //     }
 // }
+
+app.get('/search/species/:specie', findSpecies);
+
+function findSpecies(request, response) {
+    var specie = request.params.specie;
+    if (words.species[specie]) {
+        reply = {
+            "status": "found",
+            "specie": specie,
+            "details": words.species[specie]
+        }
+    } else {
+        reply = {
+            "status": "not found",
+            "specie": specie
+        }
+    }
+    response.send(reply);
+    console.log("searching for species");
+}
 
 app.get('/all', sendAll);
 

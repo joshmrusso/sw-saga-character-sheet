@@ -1,0 +1,85 @@
+{
+    "classes": {
+        "jedi":{
+            "displayName":"Jedi",
+            "first-level":{
+                "defense-bonus":{
+                    "reflex":"1",
+                    "fortitude":"1",
+                    "will":"1"
+                },
+                "hit-points":"30",
+                "feats":["force-sensitivity", "weapon-proficiency-lightsabers", "weapon-proficiency-simple-weapons"],
+                "credits":"3d4*100"
+            },
+            "hit-points":"1d10",
+            "force-points":"5",
+            "trained-skills":"2",
+            "attack-bonus":["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+        },
+        "noble":{
+            "displayName":"Noble",
+            "first-level":{
+                "defense-bonus":{
+                    "reflex":"1",
+                    "will":"2"
+                },
+                "hit-points":"18",
+                "feats":["linguist", "weapon-proficiency-pistols", "weapon-proficiency-simple-weapons"],
+                "credits":"3d4*400"
+            },
+            "hit-points":"1d6",
+            "force-points":"5",
+            "trained-skills":"6",
+            "attack-bonus":["0", "1", "2", "3", "3", "4", "5", "6", "6", "7", "8", "9", "9", "10", "11", "12", "12", "13", "14", "15"]
+        },
+        "scoundrel":{
+            "displayName":"Scoundrel",
+            "first-level":{
+                "defense-bonus":{
+                    "reflex":"2",
+                    "will":"1"
+                },
+                "hit-points":"18",
+                "feats":["point-blank-shot", "weapon-proficiency-pistols", "weapon-proficiency-simple-weapons"],
+                "credits":"3d4*250"
+            },
+            "hit-points":"1d6",
+            "force-points":"5",
+            "trained-skills":"4",
+            "attack-bonus":["0", "1", "2", "3", "3", "4", "5", "6", "6", "7", "8", "9", "9", "10", "11", "12", "12", "13", "14", "15"]
+        },
+        "scout":{
+            "displayName":"Scout",
+            "first-level":{
+                "defense-bonus":{
+                    "reflex":"2",
+                    "fortitude":"1"
+                },
+                "hit-points":"24",
+                "feats":["shake-it-off", "weapon-proficiency-pistols", "weapon-proficiency-rifles", "weapon-proficiency-simple-weapons"],
+                "credits":"3d4*250"
+            },
+            "hit-points":"1d8",
+            "force-points":"5",
+            "trained-skills":"5",
+            "attack-bonus":["0", "1", "2", "3", "3", "4", "5", "6", "6", "7", "8", "9", "9", "10", "11", "12", "12", "13", "14", "15"]
+        },
+        "soldier":{
+            "displayName":"Soldier",
+            "first-level":{
+                "defense-bonus":{
+                    "reflex":"1",
+                    "fortitude":"2"
+                },
+                "hit-points":"30",
+                "feats":["armour-proficiency-light", "armor-proficiency-medium", "weapon-proficiency-pistols", "weapon-proficiency-rifles", "weapon-proficiency-simple-weapons"],
+                "credits":"3d4*250"
+            },
+            "hit-points":"1d10",
+            "force-points":"5",
+            "trained-skills":"3",
+            "attack-bonus":["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+        }
+    }
+}

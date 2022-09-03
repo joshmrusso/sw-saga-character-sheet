@@ -1,0 +1,319 @@
+{
+    "species": {
+        "human": {
+            "displayName":"Human",
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                }
+            }
+        },
+        "bothan": {
+            "displayName":"Bothan",
+            "abilityAdj": {
+                "dex":"2",
+                "con":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "bothese": {
+                    "displayName": "Bothese"
+                }
+            }
+        },
+        "cerean": {
+            "displayName":"Cerean",
+            "abilityAdj": {
+                "int":"2",
+                "wis":"2",
+                "dex":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "cerean": {
+                    "displayName": "Cerean"
+                }
+            }
+        },
+        "duros": {
+            "displayName":"Duros",
+            "abilityAdj": {
+                "dex":"2",
+                "int":"2",
+                "con":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "durese": {
+                    "displayName": "Durese"
+                }
+            }
+        },
+        "ewok": {
+            "displayName":"Ewok",
+            "abilityAdj": {
+                "dex":"2",
+                "str":"-2"
+            },
+            "size":"small",
+            "speed":"6",
+            "language": {
+                "ewokese": {
+                    "displayName": "Ewokese",
+                    "exception": "no written language"
+                },
+                "basic": {
+                    "displayName": "Basic",
+                    "exception": "can learn"
+                }
+            }
+        },
+        "gamorrean": {
+            "displayName":"Gamorrean",
+            "abilityAdj": {
+                "str":"2",
+                "dex":"-2",
+                "int":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic",
+                    "exception":"cannot speak"
+                },
+                "gamorrean": {
+                    "displayName": "Gamorrean",
+                    "exception": "no written language"
+                }
+            }
+        },
+        "gungan": {
+            "displayName":"Gungan",
+            "abilityAdj": {
+                "dex":"2",
+                "int":"-2",
+                "cha":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "gunganese": {
+                    "displayName": "Gunganese"
+                }
+            }
+        },
+        "ithorian": {
+            "displayName":"Ithorian",
+            "abilityAdj": {
+                "wis":"2",
+                "cha":"2",
+                "dex":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "ithorese": {
+                    "displayName": "Ithorese"
+                }
+            }
+        },
+        "kel-dor": {
+            "displayName":"Kel Dor",
+            "abilityAdj": {
+                "dex":"2",
+                "wis":"2",
+                "con":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "kel-dor": {
+                    "displayName": "Kel Dor"
+                }
+            }
+        },
+        "mon-calamari": {
+            "displayName":"Mon Calamari",
+            "abilityAdj": {
+                "int":"2",
+                "wis":"2",
+                "con":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "mon-calamarian": {
+                    "displayName": "Mon Calamarian"
+                },
+                "quarrenese": {
+                    "displayName": "Quarrenese",
+                    "exception":"tend to learn"
+                }
+            }
+        },
+        "quarren": {
+            "displayName":"Quarren",
+            "abilityAdj": {
+                "con":"2",
+                "wis":"-2",
+                "cha":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "quarrenese": {
+                    "displayName": "Quarrenese"
+                },
+                "mon-calamarian": {
+                    "displayName": "Mon Calamarian",
+                    "exception":"tend to learn"
+                }
+            }
+        },
+        "rodian": {
+            "displayName":"Rodian",
+            "abilityAdj": {
+                "dex":"2",
+                "wis":"-2",
+                "cha":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "rodese": {
+                    "displayName": "Rodese"
+                },
+                "huttese": {
+                    "displayName": "Huttese",
+                    "exception":"tend to learn"
+                }
+            }
+        },
+        "sullustan": {
+            "displayName":"Sullustan",
+            "abilityAdj": {
+                "dex":"2",
+                "con":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "sullustese": {
+                    "displayName": "Sullustese"
+                }
+            }
+        },
+        "trandoshan": {
+            "displayName":"Trandoshan",
+            "abilityAdj": {
+                "str":"2",
+                "dex":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "dosh": {
+                    "displayName": "Dosh"
+                }
+            }
+        },
+        "twilek": {
+            "displayName":"Twi'lek",
+            "abilityAdj": {
+                "cha":"2",
+                "wis":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "ryl": {
+                    "displayName": "Ryl"
+                },
+                "lekku": {
+                    "displayName": "Lekku",
+                    "exception":"sign language"
+                },
+                "huttese": {
+                    "displayName": "Huttese",
+                    "exception":"tend to learn"
+                }
+            }
+        },
+        "wookiee": {
+            "displayName":"Wookiee",
+            "abilityAdj": {
+                "str":"4",
+                "con":"2",
+                "dex":"-2",
+                "wis":"-2",
+                "cha":"-2"
+            },
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic",
+                    "exception":"unable to speak"
+                },
+                "shyriiwook": {
+                    "displayName": "Shyriiwook"
+                }
+            }
+        },
+        "zabrak": {
+            "displayName":"Zabrak",
+            "size":"medium",
+            "speed":"10",
+            "language": {
+                "basic": {
+                    "displayName": "Basic"
+                },
+                "zabrak": {
+                    "displayName": "Zabrak"
+                }
+            }
+        }
+    }
+}

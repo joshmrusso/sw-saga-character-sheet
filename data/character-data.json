@@ -1,0 +1,27 @@
+{
+    "abilities": {
+        "str": {
+            "base":"10"
+        },
+        "dex": {
+            "base":"12"
+        },
+        "con": {
+            "base":"14"
+        },
+        "int": {
+            "base":"13"
+        },
+        "wis": {
+            "base":"8"
+        },
+        "cha": {
+            "base":"15"
+        }
+    },
+    "heroic-level":"1",
+    "class-level": {
+        "soldier-level":"1"
+    }
+    
+}

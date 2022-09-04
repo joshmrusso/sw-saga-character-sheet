@@ -1,8 +1,4 @@
-const fs = require('fs')
-var data = fs.readFileSync('data/species.json');
-var words = JSON.parse(data);
-var mongo = require('mongodb');
-
+var dbRequests = require('./db');
 
 console.log('server is starting');
 
@@ -48,48 +44,26 @@ app.use(express.static('website'));
 //     }
 // }
 
-app.get('/search/species/:specie', findSpecies);
+app.get('/search/species/:specie', dbRequests.findSpecies);
 
-function findSpecies(request, response) {
-    var specie = request.params.specie;
-    if (words.species[specie]) {
-        reply = {
-            "status": "found",
-            "specie": specie,
-            "details": words.species[specie]
-        }
-    } else {
-        reply = {
-            "status": "not found",
-            "specie": specie
-        }
-    }
-    response.send(reply);
-    console.log("searching for species");
-}
+app.get('/species/all', dbRequests.sendAllSpecies);
 
-app.get('/all', sendAll);
+// app.get('/search/:word', searchWord);
 
-function sendAll(request, response) {
-    response.send(words);
-}
-
-app.get('/search/:word', searchWord);
-
-function searchWord(request, response) {
-    var word = request.params.word;
-    var reply = "";
-    if (words[word]) {
-        reply = {
-            "status": "found",
-            "word": word,
-            "score": words[word]
-        }
-    } else {
-        reply = {
-            "status": "not found",
-            "word": word
-        }
-    }
-    response.send(reply);
-}
+// function searchWord(request, response) {
+//     var word = request.params.word;
+//     var reply = "";
+//     if (words[word]) {
+//         reply = {
+//             "status": "found",
+//             "word": word,
+//             "score": words[word]
+//         }
+//     } else {
+//         reply = {
+//             "status": "not found",
+//             "word": word
+//         }
+//     }
+//     response.send(reply);
+// }

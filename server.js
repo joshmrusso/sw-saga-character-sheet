@@ -6,7 +6,7 @@ var express = require('express');
 
 var app = express();
 
-var server = app.listen(3000, listening);
+var server = app.listen(3001, listening);
 
 function listening() {
     console.log("listening. . . ");
@@ -46,6 +46,7 @@ app.use(express.static('website'));
 
 app.get('/search/species/all', dbRequests.sendAllSpecies);
 app.get('/search/species/:specie', dbRequests.findSpecies);
+app.get('/search/characters/all', dbRequests.findAllCharacters);
 
 // app.get('/search/:word', searchWord);
 

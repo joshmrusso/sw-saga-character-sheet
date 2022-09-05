@@ -37,7 +37,7 @@ function findAllCharacters(request, response) {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         dbo = client.db("swSaga");
-        dbo.collection("characters").find({ }, { projection: {_id: 0, 'character-name': 1, abilities: 2, specie: 3, speed: 4, 'class-level': 5} }).toArray(function (findErr, result) {
+        dbo.collection("characters").find({ }, { projection: {_id: 1, 'character-name': 2, abilities: 3, specie: 4, speed: 5, 'class-level': 6} }).toArray(function (findErr, result) {
             if (findErr) throw findErr;
             reply = result;
             response.json(reply);

@@ -44,9 +44,8 @@ app.use(express.static('website'));
 //     }
 // }
 
+app.get('/search/species/all', dbRequests.sendAllSpecies);
 app.get('/search/species/:specie', dbRequests.findSpecies);
-
-app.get('/species/all', dbRequests.sendAllSpecies);
 
 // app.get('/search/:word', searchWord);
 

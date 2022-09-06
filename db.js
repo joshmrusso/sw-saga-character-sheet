@@ -18,6 +18,22 @@ function findSpecies(request, response) {
     console.log("searching for species");
 }
 
+function findCharacter(request, response) {
+    var characterName = request.params.characterId;
+    var reply = "";
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("characters").find({ _id: mongodb.ObjectId(characterName) }, { projection: {_id: 1, 'character-name': 2, abilities: 3, specie: 4, speed: 5, 'class-level': 6} }).toArray(function (findErr, result) {
+            if (findErr) throw findErr;
+            reply = result;
+            response.json(reply);
+            client.close();
+        });
+    });
+    console.log("searching for species");
+}
+
 function sendAllSpecies(request, response) {
     var reply = "";
     MongoClient.connect(url, function(err, client) {
@@ -49,3 +65,4 @@ function findAllCharacters(request, response) {
 exports.findSpecies = findSpecies;
 exports.sendAllSpecies = sendAllSpecies;
 exports.findAllCharacters = findAllCharacters;
+exports.findCharacter = findCharacter;

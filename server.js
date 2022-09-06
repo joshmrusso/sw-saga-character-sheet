@@ -61,6 +61,7 @@ app.use(express.static('website'));
 app.get('/search/species/all', dbRequests.sendAllSpecies);
 app.get('/search/species/:specie', dbRequests.findSpecies);
 app.get('/search/characters/all', dbRequests.findAllCharacters);
+app.get('/search/characters/:characterId', dbRequests.findCharacter);
 
 // app.get('/search/:word', searchWord);
 

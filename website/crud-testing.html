@@ -20,15 +20,170 @@
       <div class="container">
         <h1 class="title">CRUD Testing</h1>
         <p class="subtitle">Testing all API operations for the <strong>SW Saga</strong> API!</p>
-        <div class="field">
-          <label class="label">Character Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Obi-wan Kenobi">
+        <form>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Character Name</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Obi-wan Kenobi" id="character-name" name="character-name" required>
+                </div>
+                <p class="help">Please use a fairly decent in universe name</p>
+              </div>
+            </div>
+          </div>  
+          <div class="columns">
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    STR
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="STRength" id="str" name="str" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    DEX
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="DEXterity" id="dex" name="dex" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    CON
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="CONstitution" id="con" name="con" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    INT
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="INTelligence" id="int" name="int" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    WIS
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="WISdom" id="wis" name="wis" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    CHA
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="CHArisma" id="cha" name="cha" required>
+                </p>
+              </div>
+              <p class="help">Enter a number 0-20</p>
+            </div>
           </div>
-          <p class="help">Please use a fairly decent in universe name</p>
+          <div class="columns">
+            <div class="column">
+              <div class="control is-expanded">
+                <label class="label">Species</label>
+                <div class="select">
+                  <select id="specie" name="specie" required>
+                    <option disabled selected>Select species</option>
+                    <option>Human</option>
+                    <option>Zabrak</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="control is-expanded">
+                <label class="label">Class</label>
+                <div class="select">
+                  <select id="classChoice" name="classChoice" required>
+                    <option disabled selected>Select class</option>
+                    <option>Jedi</option>
+                    <option>Noble</option>
+                    <option>Soldier</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <div class="control">
+                <button type="submit" id="submit-button" class="button is-primary">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="columns">
+          <div class="column">
+            <div class="output"></div>
+          </div>
         </div>
       </div>
     </section>
     <script src="" async defer></script>
+    <script>
+      const submitBtn = document.getElementById("submit-button");
+      submitBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        characterData = {
+          "character-name": document.getElementById("character-name").value,
+          "abilities": {
+            "str": document.getElementById("str").value,
+            "dex": document.getElementById("dex").value,
+            "con": document.getElementById("con").value,
+            "int": document.getElementById("int").value,
+            "wis": document.getElementById("wis").value,
+            "cha": document.getElementById("cha").value
+          },
+          "specie": document.getElementById("specie").value,
+          "class-level": {
+            "class": {
+              "class-name": document.getElementById("classChoice").value,
+              "level": 1
+            }
+          }
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:3001/characters", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(characterData));
+        console.log(characterData);
+      });
+
+    </script>
   </body>
 </html>

@@ -62,7 +62,13 @@ function findAllCharacters(request, response) {
     });
 }
 
+function addCharacter(request, response) {
+    var reply = "";
+    response.json(reply);
+}
+
 exports.findSpecies = findSpecies;
 exports.sendAllSpecies = sendAllSpecies;
 exports.findAllCharacters = findAllCharacters;
 exports.findCharacter = findCharacter;
+exports.addCharacter = addCharacter;

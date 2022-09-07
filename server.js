@@ -58,10 +58,11 @@ app.use(express.static('website'));
 //     }
 // }
 
-app.get('/search/species/all', dbRequests.sendAllSpecies);
-app.get('/search/species/:specie', dbRequests.findSpecies);
-app.get('/search/characters/all', dbRequests.findAllCharacters);
-app.get('/search/characters/:characterId', dbRequests.findCharacter);
+app.get('/species/all', dbRequests.sendAllSpecies);
+app.get('/species/:specie', dbRequests.findSpecies);
+app.get('/characters', dbRequests.findAllCharacters);
+app.get('/characters/:characterId', dbRequests.findCharacter);
+app.post('/characters', dbRequests.addCharacter);
 
 // app.get('/search/:word', searchWord);
 

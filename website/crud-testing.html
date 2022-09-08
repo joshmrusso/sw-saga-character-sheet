@@ -119,8 +119,8 @@
                 <div class="select">
                   <select id="specie" name="specie" required>
                     <option disabled selected>Select species</option>
-                    <option>Human</option>
-                    <option>Zabrak</option>
+                    <option value="human">Human</option>
+                    <option value="zabrak">Zabrak</option>
                   </select>
                 </div>
               </div>
@@ -131,10 +131,18 @@
                 <div class="select">
                   <select id="classChoice" name="classChoice" required>
                     <option disabled selected>Select class</option>
-                    <option>Jedi</option>
-                    <option>Noble</option>
-                    <option>Soldier</option>
+                    <option value="jedi">Jedi</option>
+                    <option value="noble">Noble</option>
+                    <option value="soldier">Soldier</option>
                   </select>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Id</label>
+                <div class="control">
+                  <input class="input" type="text" id="character-id" name="character-id">
                 </div>
               </div>
             </div>
@@ -142,14 +150,29 @@
           <div class="columns">
             <div class="column">
               <div class="control">
-                <button type="submit" id="submit-button" class="button is-primary">Submit</button>
+                <button type="submit" id="submit-button" class="button is-primary">Add</button>
+              </div>
+            </div>
+            <div class="column">
+              <div class="control">
+                <button type="submit" id="update-button" class="button is-warning">Update</button>
+              </div>
+            </div>
+            <div class="column">
+              <div class="control">
+                <button type="submit" id="search-button" class="button is-info">Search</button>
+              </div>
+            </div>
+            <div class="column">
+              <div class="control">
+                <button type="submit" id="delete-button" class="button is-danger">Delete</button>
               </div>
             </div>
           </div>
         </form>
         <div class="columns">
           <div class="column">
-            <div class="output"></div>
+            <div id="output"></div>
           </div>
         </div>
       </div>
@@ -157,6 +180,10 @@
     <script src="" async defer></script>
     <script>
       const submitBtn = document.getElementById("submit-button");
+      const updateBtn = document.getElementById("update-button");
+      const searchBtn = document.getElementById("search-button");
+      const deleteBtn = document.getElementById("delete-button");
+
       submitBtn.addEventListener("click", (event) => {
         event.preventDefault();
         characterData = {
@@ -181,8 +208,131 @@
         xhr.open("POST", "http://localhost:3001/characters", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(characterData));
-        console.log(characterData);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            let responseData = JSON.parse(this.responseText);
+            const serverResponse = document.getElementById("output");
+            const characterName = document.getElementById("character-name");
+            const strStat = document.getElementById("str");
+            const dexStat = document.getElementById("dex");
+            const conStat = document.getElementById("con");
+            const intStat = document.getElementById("int");
+            const wisStat = document.getElementById("wis");
+            const chaStat = document.getElementById("cha");
+            const specie = document.getElementById("specie");
+            const classChoice = document.getElementById("classChoice");
+            const charId = document.getElementById("character-id");
+            characterName.value = responseData.data['character-name'];
+            strStat.value = responseData.data.abilities['str'];
+            dexStat.value = responseData.data.abilities['dex'];
+            conStat.value = responseData.data.abilities['con'];
+            intStat.value = responseData.data.abilities['int'];
+            wisStat.value = responseData.data.abilities['wis'];
+            chaStat.value = responseData.data.abilities['cha'];
+            specie.value = responseData.data['specie'];
+            classChoice.value = responseData.data['class-level']['class']['class-name'];
+            charId.value = responseData.id;
+          }
+        }
       });
+
+      updateBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        characterData = {
+          "_id": document.getElementById("character-id").value,
+          "character-name": document.getElementById("character-name").value,
+          "abilities": {
+            "str": document.getElementById("str").value,
+            "dex": document.getElementById("dex").value,
+            "con": document.getElementById("con").value,
+            "int": document.getElementById("int").value,
+            "wis": document.getElementById("wis").value,
+            "cha": document.getElementById("cha").value
+          },
+          "specie": document.getElementById("specie").value,
+          "class-level": {
+            "class": {
+              "class-name": document.getElementById("classChoice").value,
+              "level": 1
+            }
+          }
+        }
+        var charId = document.getElementById("character-id").value;
+        var xhr = new XMLHttpRequest();
+        var searchURL = "http://localhost:3001/characters/" + charId
+        xhr.open("PUT", searchURL, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(characterData));
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            let responseData = JSON.parse(this.responseText);
+            // console.log(responseData);
+            const characterName = document.getElementById("character-name");
+            const strStat = document.getElementById("str");
+            const dexStat = document.getElementById("dex");
+            const conStat = document.getElementById("con");
+            const intStat = document.getElementById("int");
+            const wisStat = document.getElementById("wis");
+            const chaStat = document.getElementById("cha");
+            const specie = document.getElementById("specie");
+            const classChoice = document.getElementById("classChoice");
+            const charId = document.getElementById("character-id");
+            console.log(responseData);
+            characterName.value = responseData.data['character-name'];
+            strStat.value = responseData.data.abilities['str'];
+            dexStat.value = responseData.data.abilities['dex'];
+            conStat.value = responseData.data.abilities['con'];
+            intStat.value = responseData.data.abilities['int'];
+            wisStat.value = responseData.data.abilities['wis'];
+            chaStat.value = responseData.data.abilities['cha'];
+            specie.value = responseData.data['specie'];
+            classChoice.value = responseData.data['class-level']['class']['class-name'];
+            charId.value = responseData.id;
+          }
+        }
+      });
+
+      searchBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        var charId = document.getElementById("character-id").value;
+        var xhr = new XMLHttpRequest();
+        var searchURL = "http://localhost:3001/characters/" + charId
+        xhr.open("GET", searchURL, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            // console.log(this.responseText);
+            let responseData = JSON.parse(this.responseText);
+            // const serverResponse = document.getElementById("output");
+            const characterName = document.getElementById("character-name");
+            const strStat = document.getElementById("str");
+            const dexStat = document.getElementById("dex");
+            const conStat = document.getElementById("con");
+            const intStat = document.getElementById("int");
+            const wisStat = document.getElementById("wis");
+            const chaStat = document.getElementById("cha");
+            const specie = document.getElementById("specie");
+            const classChoice = document.getElementById("classChoice");
+            characterName.value = responseData[0]['character-name'];
+            // console.log(responseData[0]);
+            strStat.value = responseData[0].abilities['str'];
+            dexStat.value = responseData[0].abilities['dex'];
+            conStat.value = responseData[0].abilities['con'];
+            intStat.value = responseData[0].abilities['int'];
+            wisStat.value = responseData[0].abilities['wis'];
+            chaStat.value = responseData[0].abilities['cha'];
+            specie.value = responseData[0]['specie'];
+            classChoice.value = responseData[0]['class-level']['class']['class-name'];
+            // serverResponse.innerHTML = responseData.id;
+          }
+        }
+      });
+
+
+      deleteBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+      });
+
 
     </script>
   </body>

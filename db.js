@@ -63,8 +63,44 @@ function findAllCharacters(request, response) {
 }
 
 function addCharacter(request, response) {
-    var reply = "";
-    response.json(reply);
+    let data = request.body;
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("characters").insertOne(data, function(err, db) {
+            if (err) throw err;
+            var reply = {
+                "response": "success",
+                "data": data,
+                "id": db.insertedId
+            };
+            response.json(reply);
+            client.close();
+        });
+    });
+}
+
+function updateCharacter(request, response) {
+    let data = request.body;
+    let searchId = data['_id'];
+    delete data['_id'];
+    // console.log(data);
+    // var reply = "update data";
+    // response.json(data);
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("characters").replaceOne({ "_id": searchId }, data, function(err, db) {
+            if (err) throw err;
+            var reply = {
+                "response": "success",
+                "data": data,
+                "id": searchId
+            };
+            response.json(reply);
+            client.close();
+        });
+    });
 }
 
 exports.findSpecies = findSpecies;
@@ -72,3 +108,4 @@ exports.sendAllSpecies = sendAllSpecies;
 exports.findAllCharacters = findAllCharacters;
 exports.findCharacter = findCharacter;
 exports.addCharacter = addCharacter;
+exports.updateCharacter = updateCharacter;

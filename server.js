@@ -9,7 +9,7 @@ var app = express();
 
 var server = app.listen(3001, listening);
 
-const whitelist = ['http://localhost:3000'];
+const whitelist = ['http://localhost:3000', 'http://localhost:3001'];
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -27,6 +27,7 @@ function listening() {
 }
 
 app.use(express.static('website'));
+app.use(express.json());
 
 // app.get('/add/:word/:score?', addWord);
 
@@ -63,6 +64,7 @@ app.get('/species/:specie', dbRequests.findSpecies);
 app.get('/characters', dbRequests.findAllCharacters);
 app.get('/characters/:characterId', dbRequests.findCharacter);
 app.post('/characters', dbRequests.addCharacter);
+app.put('/characters/:characterId', dbRequests.updateCharacter);
 
 // app.get('/search/:word', searchWord);
 

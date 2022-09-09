@@ -139,10 +139,18 @@
               </div>
             </div>
             <div class="column">
-              <div class="field">
+              <div class="control is-expanded">
                 <label class="label">Id</label>
-                <div class="control">
-                  <input class="input" type="text" id="character-id" name="character-id">
+                <input class="input" type="text" id="character-id" name="character-id">
+              </div>
+            </div>
+            <div class="column">
+              <div class="control is-expanded">
+                <label class="label">Character Select</label>
+                <div class="select">
+                  <select id="characterSelect" name="characterSelect" required>
+                    <option disabled selected>Select class</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -232,6 +240,7 @@
             specie.value = responseData.data['specie'];
             classChoice.value = responseData.data['class-level']['class']['class-name'];
             charId.value = responseData.id;
+            loadUserList();
           }
         }
       });
@@ -239,7 +248,7 @@
       updateBtn.addEventListener("click", (event) => {
         event.preventDefault();
         characterData = {
-          "_id": document.getElementById("character-id").value,
+          "_id": document.getElementById("characterSelect").value,
           "character-name": document.getElementById("character-name").value,
           "abilities": {
             "str": document.getElementById("str").value,
@@ -276,8 +285,9 @@
             const chaStat = document.getElementById("cha");
             const specie = document.getElementById("specie");
             const classChoice = document.getElementById("classChoice");
+            const characterSel = document.getElementById("characterSelect");
             const charId = document.getElementById("character-id");
-            console.log(responseData);
+            // console.log(responseData);
             characterName.value = responseData.data['character-name'];
             strStat.value = responseData.data.abilities['str'];
             dexStat.value = responseData.data.abilities['dex'];
@@ -287,6 +297,7 @@
             chaStat.value = responseData.data.abilities['cha'];
             specie.value = responseData.data['specie'];
             classChoice.value = responseData.data['class-level']['class']['class-name'];
+            characterSel.value = responseData.id;
             charId.value = responseData.id;
           }
         }
@@ -294,7 +305,8 @@
 
       searchBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        var charId = document.getElementById("character-id").value;
+        var charId = document.getElementById("characterSelect").value;
+        // console.log(charId);
         var xhr = new XMLHttpRequest();
         var searchURL = "http://localhost:3001/characters/" + charId
         xhr.open("GET", searchURL, true);
@@ -313,8 +325,12 @@
             const chaStat = document.getElementById("cha");
             const specie = document.getElementById("specie");
             const classChoice = document.getElementById("classChoice");
+            const characterSel = document.getElementById("characterSelect");
+            const characterInput = document.getElementById("character-id");
             characterName.value = responseData[0]['character-name'];
             // console.log(responseData[0]);
+            characterSel.value = responseData[0]['_id'];
+            characterInput.value = responseData[0]['_id'];
             strStat.value = responseData[0].abilities['str'];
             dexStat.value = responseData[0].abilities['dex'];
             conStat.value = responseData[0].abilities['con'];
@@ -328,11 +344,64 @@
         }
       });
 
-
       deleteBtn.addEventListener("click", (event) => {
         event.preventDefault();
+        var charId = document.getElementById("characterSelect").value;
+        var xhr = new XMLHttpRequest();
+        var deleteURL = "http://localhost:3001/characters/" + charId
+        xhr.open("DELETE", deleteURL, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          const characterName = document.getElementById("character-name");
+          const strStat = document.getElementById("str");
+          const dexStat = document.getElementById("dex");
+          const conStat = document.getElementById("con");
+          const intStat = document.getElementById("int");
+          const wisStat = document.getElementById("wis");
+          const chaStat = document.getElementById("cha");
+          const specie = document.getElementById("specie");
+          const classChoice = document.getElementById("classChoice");
+          const characterSel = document.getElementById("characterSelect");
+          const characterInput = document.getElementById("character-id");
+          characterName.value = "";
+          characterSel.value = "";
+          characterInput.value = "";
+          strStat.value = "";
+          dexStat.value = "";
+          conStat.value = "";
+          intStat.value = "";
+          wisStat.value = "";
+          chaStat.value = "";
+          specie.value = "";
+          classChoice.value = "";
+          loadUserList();
+        }
       });
 
+      function loadUserList() {
+        var xhr = new XMLHttpRequest();
+        var searchURL = "http://localhost:3001/characters/"
+        xhr.open("GET", searchURL, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          // console.log(this.responseText);
+        }
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var data = JSON.parse(this.responseText);
+            var dropdownList = "<option disabled selected>Select character</option>\r\n";
+            for (var i = 0; i < data.length; i++) {
+              dropdownList += '<option value="' + data[i]._id + '">' + data[i]['character-name'] + '</option>\r\n';
+              // console.log(data[i]);
+            }
+            let attachDropdown = document.getElementById("characterSelect");
+            attachDropdown.innerHTML = dropdownList;
+            // console.log(dropdownList);
+          }
+        }
+      };
+
+      loadUserList();
 
     </script>
   </body>

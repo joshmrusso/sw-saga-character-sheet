@@ -61,10 +61,13 @@ app.use(express.json());
 
 app.get('/species/all', dbRequests.sendAllSpecies);
 app.get('/species/:specie', dbRequests.findSpecies);
+
+app.get('/characters/all/:latest', dbRequests.findLatestCharacters);
 app.get('/characters', dbRequests.findAllCharacters);
 app.get('/characters/:characterId', dbRequests.findCharacter);
 app.post('/characters', dbRequests.addCharacter);
 app.put('/characters/:characterId', dbRequests.updateCharacter);
+app.delete('/characters/:characterId', dbRequests.deleteCharacter);
 
 // app.get('/search/:word', searchWord);
 

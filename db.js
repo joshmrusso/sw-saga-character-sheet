@@ -90,7 +90,7 @@ function updateCharacter(request, response) {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         dbo = client.db("swSaga");
-        dbo.collection("characters").replaceOne({ "_id": searchId }, data, function(err, db) {
+        dbo.collection("characters").replaceOne({ "_id": mongodb.ObjectId(searchId) }, data, function(err, db) {
             if (err) throw err;
             var reply = {
                 "response": "success",
@@ -103,9 +103,44 @@ function updateCharacter(request, response) {
     });
 }
 
+function deleteCharacter(request, response) {
+    var characterId = request.params.characterId;
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("characters").deleteOne({ "_id": mongodb.ObjectId(characterId) }, function(err, db) {
+            if (err) throw err;
+            var reply = {
+                "response": "success",
+                "id": characterId
+            };
+            response.json(reply);
+            client.close();
+        });
+    });
+}
+
+function findLatestCharacters(request, response) {
+    var numReturned = parseInt(request.params.latest);
+    var reply = "";
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("characters").find({ }, { projection: {_id: 1, 'character-name': 2} }).sort({_id: -1}).limit(numReturned).toArray(function (findErr, result) {
+            if (findErr) throw findErr;
+            reply = result;
+            response.json(reply);
+            client.close();
+        });
+    });
+    console.log("getting last few characters");
+}
+
 exports.findSpecies = findSpecies;
 exports.sendAllSpecies = sendAllSpecies;
 exports.findAllCharacters = findAllCharacters;
 exports.findCharacter = findCharacter;
 exports.addCharacter = addCharacter;
 exports.updateCharacter = updateCharacter;
+exports.deleteCharacter = deleteCharacter;
+exports.findLatestCharacters = findLatestCharacters;

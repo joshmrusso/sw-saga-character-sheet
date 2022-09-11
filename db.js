@@ -39,7 +39,7 @@ function sendAllSpecies(request, response) {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         dbo = client.db("swSaga");
-        dbo.collection("species").find({ }, { projection: {_id: 0, specieName: 1, displayName: 2} }).toArray(function (findErr, result) {
+        dbo.collection("species").find({ }, { projection: {_id: 1, specieName: 2, displayName: 3, abilityAdj: 4, size: 5, speed: 6, language: 7} }).toArray(function (findErr, result) {
             if (findErr) throw findErr;
             reply = result;
             response.json(reply);

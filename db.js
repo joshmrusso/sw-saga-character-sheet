@@ -136,8 +136,23 @@ function findLatestCharacters(request, response) {
     console.log("getting last few characters");
 }
 
+function sendAllClasses(request, response) {
+    var reply = "";
+    MongoClient.connect(url, function(err, client) {
+        if (err) throw err;
+        dbo = client.db("swSaga");
+        dbo.collection("classes").find({ }, { projection: {_id: 1, className: 2, startingHitPoints: 3, hitPoints: 4, startingSkills: 5, classSkills: 6, forcePoints: 7, defenseBonus: 8, startingFeats: 9, attackBonus: 10, bonusFeats: 11, credits: 12} }).toArray(function (findErr, result) {
+            if (findErr) throw findErr;
+            reply = result;
+            response.json(reply);
+            client.close();
+        });
+    });
+}
+
 exports.findSpecies = findSpecies;
 exports.sendAllSpecies = sendAllSpecies;
+exports.sendAllClasses = sendAllClasses;
 exports.findAllCharacters = findAllCharacters;
 exports.findCharacter = findCharacter;
 exports.addCharacter = addCharacter;

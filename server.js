@@ -59,9 +59,14 @@ app.use(express.json());
 //     }
 // }
 
+// species requests for species types
 app.get('/species/all', dbRequests.sendAllSpecies);
 app.get('/species/:specie', dbRequests.findSpecies);
 
+// classes searchs
+app.get('/classes', dbRequests.sendAllClasses);
+
+// character searchs
 app.get('/characters/all/:latest', dbRequests.findLatestCharacters);
 app.get('/characters', dbRequests.findAllCharacters);
 app.get('/characters/:characterId', dbRequests.findCharacter);

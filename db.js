@@ -24,7 +24,7 @@ function findCharacter(request, response) {
     MongoClient.connect(url, function(err, client) {
         if (err) throw err;
         dbo = client.db("swSaga");
-        dbo.collection("characters").find({ _id: mongodb.ObjectId(characterName) }, { projection: {_id: 1, 'character-name': 2, abilities: 3, specie: 4, speed: 5, 'class-level': 6} }).toArray(function (findErr, result) {
+        dbo.collection("characters").find({ _id: mongodb.ObjectId(characterName) }, { projection: {_id: 1, 'character-name': 2, 'player-name': 3, 'age': 4, 'gender': 5, 'height': 6, 'weight': 7, abilities: 8, specie: 9, speed: 10, 'class-level': 11, 'defense': 12, 'condition': 13, 'hp': 14, 'fp': 15, 'bab': 16, 'dr': 17, 'sr': 18} }).toArray(function (findErr, result) {
             if (findErr) throw findErr;
             reply = result;
             response.json(reply);

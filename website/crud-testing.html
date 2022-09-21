@@ -195,7 +195,67 @@
               </div>
               <p class="help">Base Attack Bonus</p>
             </div>
-          </div>  
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    DR
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="0" id="damageReduction" name="damageReduction" required>
+                </p>
+              </div>
+              <p class="help">Damage Reduction</p>
+            </div>
+            <div class="column">
+              <div class="field has-addons">
+                <p class="control">
+                  <a class="button is-static">
+                    SR
+                  </a>
+                </p>
+                <p class="control">
+                  <input class="input" type="text" placeholder="0" id="shieldReduction" name="shieldReduction" required>
+                </p>
+              </div>
+              <p class="help">Shield Reduction</p>
+            </div>
+          </div> 
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Reflex Defense</label>
+                <p class="control">
+                  <input class="input" type="text" placeholder="1" id="refDef" name="refDef" required>
+                </p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Fortitude Defense</label>
+                <p class="control">
+                  <input class="input" type="text" placeholder="2" id="fortDef" name="fortDef" required>
+                </p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Will Defense</label>
+                <p class="control">
+                  <input class="input" type="text" placeholder="1" id="wilDef" name="wilDef" required>
+                </p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Condition</label>
+                <p class="control">
+                  <input class="input" type="text" placeholder="0-5" id="condition" name="condition" required>
+                </p>
+              </div>
+            </div>
+          </div> 
           <div class="columns">
             <div class="column">
               <div class="control is-expanded">
@@ -280,6 +340,11 @@
         event.preventDefault();
         characterData = {
           "character-name": document.getElementById("character-name").value,
+          "player-name": document.getElementById("player-name").value,
+          "age":document.getElementById("age").value,
+          "gender":document.getElementById("gender").value,
+          "height":document.getElementById("height").value,
+          "weight":document.getElementById("weight").value,
           "abilities": {
             "str": document.getElementById("str").value,
             "dex": document.getElementById("dex").value,
@@ -294,7 +359,21 @@
               "class-name": document.getElementById("classChoice").value,
               "level": 1
             }
-          }
+          },
+          "defense": {
+            "reflex":document.getElementById("refDef").value,
+            "fortitude":document.getElementById("fortDef").value,
+            "will":document.getElementById("wilDef").value
+          },
+          "condition":{
+            "value":document.getElementById("condition").value,
+            "displayName":"Normal"
+          },
+          "hp":document.getElementById("hitPoints").value,
+          "fp":document.getElementById("forcePoints").value,
+          "bab":document.getElementById("baseAttackBonus").value,
+          "dr":document.getElementById("damageReduction").value,
+          "sr":document.getElementById("shieldReduction").value
         }
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:3001/characters", true);
@@ -305,6 +384,11 @@
             let responseData = JSON.parse(this.responseText);
             const serverResponse = document.getElementById("output");
             const characterName = document.getElementById("character-name");
+            const playerName = document.getElementById("player-name");
+            const age = document.getElementById("age");
+            const gender = document.getElementById("gender");
+            const height = document.getElementById("height");
+            const weight = document.getElementById("weight");
             const strStat = document.getElementById("str");
             const dexStat = document.getElementById("dex");
             const conStat = document.getElementById("con");
@@ -313,8 +397,22 @@
             const chaStat = document.getElementById("cha");
             const specie = document.getElementById("specie");
             const classChoice = document.getElementById("classChoice");
+            const refDef = document.getElementById("refDef");
+            const fortDef = document.getElementById("fortDef");
+            const wilDef = document.getElementById("wilDef");
+            const condition = document.getElementById("condition");
+            const hitPoints = document.getElementById("hitPoints");
+            const forcePoints = document.getElementById("forcePoints");
+            const baseAttackBonus = document.getElementById("baseAttackBonus");
+            const damageReduction = document.getElementById("damageReduction");
+            const shieldReduction = document.getElementById("shieldReduction");
             const charId = document.getElementById("character-id");
             characterName.value = responseData.data['character-name'];
+            playerName.value = responseData.data['player-name'];
+            age.value = responseData.data['age'];
+            gender.value = responseData.data['gender'];
+            height.value = responseData.data['height'];
+            weight.value = responseData.data['weight'];
             strStat.value = responseData.data.abilities['str'];
             dexStat.value = responseData.data.abilities['dex'];
             conStat.value = responseData.data.abilities['con'];
@@ -323,6 +421,15 @@
             chaStat.value = responseData.data.abilities['cha'];
             specie.value = responseData.data['specie'];
             classChoice.value = responseData.data['class-level']['class']['class-name'];
+            refDef.value = responseData.data['defense']['reflex'];
+            fortDef.value = responseData.data['defense']['fortitude'];
+            wilDef.value = responseData.data['defense']['will'];
+            condition.value = responseData.data['condition']['value'];
+            hitPoints.value = responseData.data['hp'];
+            forcePoints.value = responseData.data['fp'];
+            baseAttackBonus.value = responseData.data['bab'];
+            damageReduction.value = responseData.data['dr'];
+            shieldReduction.value = responseData.data['sr'];
             charId.value = responseData.id;
             loadUserList();
           }
@@ -334,6 +441,11 @@
         characterData = {
           "_id": document.getElementById("characterSelect").value,
           "character-name": document.getElementById("character-name").value,
+          "player-name": document.getElementById("player-name").value,
+          "age":document.getElementById("age").value,
+          "gender":document.getElementById("gender").value,
+          "height":document.getElementById("height").value,
+          "weight":document.getElementById("weight").value,
           "abilities": {
             "str": document.getElementById("str").value,
             "dex": document.getElementById("dex").value,
@@ -348,7 +460,21 @@
               "class-name": document.getElementById("classChoice").value,
               "level": 1
             }
-          }
+          },
+          "defense": {
+            "reflex":document.getElementById("refDef").value,
+            "fortitude":document.getElementById("fortDef").value,
+            "will":document.getElementById("wilDef").value
+          },
+          "condition":{
+            "value":document.getElementById("condition").value,
+            "displayName":"Normal"
+          },
+          "hp":document.getElementById("hitPoints").value,
+          "fp":document.getElementById("forcePoints").value,
+          "bab":document.getElementById("baseAttackBonus").value,
+          "dr":document.getElementById("damageReduction").value,
+          "sr":document.getElementById("shieldReduction").value
         }
         var charId = document.getElementById("character-id").value;
         var xhr = new XMLHttpRequest();
@@ -360,7 +486,13 @@
           if (xhr.readyState == 4 && xhr.status == 200) {
             let responseData = JSON.parse(this.responseText);
             // console.log(responseData);
+            const serverResponse = document.getElementById("output");
             const characterName = document.getElementById("character-name");
+            const playerName = document.getElementById("player-name");
+            const age = document.getElementById("age");
+            const gender = document.getElementById("gender");
+            const height = document.getElementById("height");
+            const weight = document.getElementById("weight");
             const strStat = document.getElementById("str");
             const dexStat = document.getElementById("dex");
             const conStat = document.getElementById("con");
@@ -369,10 +501,24 @@
             const chaStat = document.getElementById("cha");
             const specie = document.getElementById("specie");
             const classChoice = document.getElementById("classChoice");
+            const refDef = document.getElementById("refDef");
+            const fortDef = document.getElementById("fortDef");
+            const wilDef = document.getElementById("wilDef");
+            const condition = document.getElementById("condition");
+            const hitPoints = document.getElementById("hitPoints");
+            const forcePoints = document.getElementById("forcePoints");
+            const baseAttackBonus = document.getElementById("baseAttackBonus");
+            const damageReduction = document.getElementById("damageReduction");
+            const shieldReduction = document.getElementById("shieldReduction");
             const characterSel = document.getElementById("characterSelect");
             const charId = document.getElementById("character-id");
             // console.log(responseData);
             characterName.value = responseData.data['character-name'];
+            playerName.value = responseData.data['player-name'];
+            age.value = responseData.data['age'];
+            gender.value = responseData.data['gender'];
+            height.value = responseData.data['height'];
+            weight.value = responseData.data['weight'];
             strStat.value = responseData.data.abilities['str'];
             dexStat.value = responseData.data.abilities['dex'];
             conStat.value = responseData.data.abilities['con'];
@@ -381,6 +527,15 @@
             chaStat.value = responseData.data.abilities['cha'];
             specie.value = responseData.data['specie'];
             classChoice.value = responseData.data['class-level']['class']['class-name'];
+            refDef.value = responseData.data['defense']['reflex'];
+            fortDef.value = responseData.data['defense']['fortitude'];
+            wilDef.value = responseData.data['defense']['will'];
+            condition.value = responseData.data['condition']['value'];
+            hitPoints.value = responseData.data['hp'];
+            forcePoints.value = responseData.data['fp'];
+            baseAttackBonus.value = responseData.data['bab'];
+            damageReduction.value = responseData.data['dr'];
+            shieldReduction.value = responseData.data['sr'];
             characterSel.value = responseData.id;
             charId.value = responseData.id;
           }
@@ -397,10 +552,15 @@
         xhr.send();
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
-            // console.log(this.responseText);
+            console.log(this.responseText);
             let responseData = JSON.parse(this.responseText);
             // const serverResponse = document.getElementById("output");
             const characterName = document.getElementById("character-name");
+            const playerName = document.getElementById("player-name");
+            const age = document.getElementById("age");
+            const gender = document.getElementById("gender");
+            const height = document.getElementById("height");
+            const weight = document.getElementById("weight");
             const strStat = document.getElementById("str");
             const dexStat = document.getElementById("dex");
             const conStat = document.getElementById("con");
@@ -409,12 +569,24 @@
             const chaStat = document.getElementById("cha");
             const specie = document.getElementById("specie");
             const classChoice = document.getElementById("classChoice");
+            const refDef = document.getElementById("refDef");
+            const fortDef = document.getElementById("fortDef");
+            const wilDef = document.getElementById("wilDef");
+            const condition = document.getElementById("condition");
+            const hitPoints = document.getElementById("hitPoints");
+            const forcePoints = document.getElementById("forcePoints");
+            const baseAttackBonus = document.getElementById("baseAttackBonus");
+            const damageReduction = document.getElementById("damageReduction");
+            const shieldReduction = document.getElementById("shieldReduction");
             const characterSel = document.getElementById("characterSelect");
             const characterInput = document.getElementById("character-id");
-            characterName.value = responseData[0]['character-name'];
             // console.log(responseData[0]);
-            characterSel.value = responseData[0]['_id'];
-            characterInput.value = responseData[0]['_id'];
+            characterName.value = responseData[0]['character-name'];
+            playerName.value = responseData[0]['player-name'];
+            age.value = responseData[0]['age'];
+            gender.value = responseData[0]['gender'];
+            height.value = responseData[0]['height'];
+            weight.value = responseData[0]['weight'];
             strStat.value = responseData[0].abilities['str'];
             dexStat.value = responseData[0].abilities['dex'];
             conStat.value = responseData[0].abilities['con'];
@@ -423,6 +595,17 @@
             chaStat.value = responseData[0].abilities['cha'];
             specie.value = responseData[0]['specie'];
             classChoice.value = responseData[0]['class-level']['class']['class-name'];
+            refDef.value = responseData[0].defense['reflex'];
+            fortDef.value = responseData[0].defense['fortitude'];
+            wilDef.value = responseData[0].defense['will'];
+            condition.value = responseData[0]['condition']['value'];
+            hitPoints.value = responseData[0]['hp'];
+            forcePoints.value = responseData[0]['fp'];
+            baseAttackBonus.value = responseData[0]['bab'];
+            damageReduction.value = responseData[0]['dr'];
+            shieldReduction.value = responseData[0]['sr'];
+            characterSel.value = responseData[0]['_id'];
+            characterInput.value = responseData[0]['_id'];
             // serverResponse.innerHTML = responseData.id;
           }
         }
